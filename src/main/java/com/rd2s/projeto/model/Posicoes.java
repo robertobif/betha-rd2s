@@ -18,18 +18,8 @@ public class Posicoes extends AbstractEntity {
     private String descricao;
 
     @NotNull
-    @Size (max = 3, message = "A Sigla não pode ter mais de {max} caracteres")
     @Column(name = "SIGLA_POS")
     private SiglaPosicoes sigla_pos;
-
-    //    @ManyToOne
-    //    @JoinColumn(name = "I_USUARIOS", referencedColumnName = "ID")
-    //private Usuarios usuarios;
-
-    //    @ManyToOne
-    //    @JoinColumn(name = "I_USUARIOS", referencedColumnName = "ID")
-    //private Usuarios usuariosAlt;
-
 
     public String getDescricao() {
         return descricao;
@@ -55,12 +45,3 @@ public class Posicoes extends AbstractEntity {
                 '}';
     }
 }
-
-/*
-ID
-DESCRICAO
-SIGLA_POS - ENUM
-ID_USUARIO
-ID_USUARIOALT
-
-*/

@@ -20,4 +20,11 @@ public class Estado extends AbstractRegion {
     public void setPais(Pais pais) {
         this.pais = pais;
     }
+
+    @Override
+    public String toString() {
+        return "Estado{" +
+                "pais=" + pais +
+                '}';
+    }
 }
