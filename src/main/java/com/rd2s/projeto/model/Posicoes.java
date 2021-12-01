@@ -2,9 +2,7 @@ package com.rd2s.projeto.model;
 
 import com.rd2s.projeto.enterprise.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -18,7 +16,9 @@ public class Posicoes extends AbstractEntity {
     private String descricao;
 
     @NotNull
-    @Column(name = "SIGLA_POS")
+    @ManyToOne
+    @JoinColumn(name = "I_SIGLA_POS", referencedColumnName = "ID")
+    @Size (max = 3, message = "A Sigla não pode ter mais de {max} caracteres")
     private SiglaPosicoes sigla_pos;
 
     public String getDescricao() {

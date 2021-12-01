@@ -58,6 +58,15 @@ public class PosicoesController {
         return repository.save(posicoesFind);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable(value = "id") Long posicoesId) throws EntityNotFoundException {
+        Posicoes posicoesFind = repository.findById(posicoesId)
+                .orElseThrow(() -> new EntityNotFoundException("Posição não encontrado com ID :: " + posicoesId));
+
+        repository.delete(posicoesFind);
+
+        return ResponseEntity.noContent().build();
+    }
     
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

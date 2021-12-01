@@ -1,8 +1,11 @@
 package com.rd2s.projeto.resource;
 
+import com.querydsl.core.types.Predicate;
 import com.rd2s.projeto.model.Cidade;
 import com.rd2s.projeto.repository.CidadeRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +28,11 @@ public class CidadeController {
     private CidadeRepository repository;
 
     @GetMapping
-    public List<CidadeDTO> getCidades(){
-        return repository.findAll().stream().map(p-> CidadeDTO.toDTO(p)).collect(Collectors.toList());
+    public List<CidadeDTO> getCidades(@QuerydslPredicate(root = Cidade.class) Predicate predicate) {
+        List<CidadeDTO> result = new ArrayList<>();
+        Iterable<Cidade> all = repository.findAll(predicate);
+        all.forEach(f -> result.add(CidadeDTO.toDTO(f)));
+        return result;
     }
 
     @GetMapping("/{id}")
@@ -50,6 +57,7 @@ public class CidadeController {
         cidadeFind.setId(cidade.getId());
         cidadeFind.setNome(cidade.getNome());
         cidadeFind.setPopulacao(cidade.getPopulacao());
+        cidadeFind.setEstado(cidade.getEstado());
 
         return repository.save(cidadeFind);
     }

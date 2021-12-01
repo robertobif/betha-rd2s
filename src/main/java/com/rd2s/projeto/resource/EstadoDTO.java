@@ -55,7 +55,7 @@ public class EstadoDTO {
         entity.setId(Long.getLong(dto.getId()));
         entity.setNome(dto.getNome());
         entity.setPopulacao(dto.getPopulacao());
-        //entity.setPais(dto.getPais());
+        entity.setPais(PaisDTO.fromDTO(dto.getPais()));
         return entity;
     }
 }
